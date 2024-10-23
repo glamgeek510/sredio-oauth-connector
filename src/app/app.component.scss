@@ -1,0 +1,64 @@
+
+.container {
+    padding: 20px;
+}
+
+mat-card {
+    flex: auto;
+    max-width: 660px;
+    max-height: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    box-sizing: border-box;
+    margin: auto auto;
+
+    .connect-delete {
+        float: right;
+    }
+
+    mat-expansion-panel {
+        mat-expansion-panel-header {
+            div.logo-container {
+                float: left;
+                display: block;
+                width: 50%;
+                margin-top: 5px;
+    
+                img.logo-round {
+                    width: 23px;
+                    height: auto;
+                }
+    
+                img.logo-horiz-words {
+                    width: 50px;
+                    height: auto;
+                }
+            }
+
+            div.profile-info-container {
+                font-size: 10px;
+                color: #939393;
+                float: right;
+                text-align: right;
+                width: 50%;
+                margin-right: 12px;
+            }
+
+        }
+
+        mat-card-content {
+            text-align: center;
+
+            h3.connect-headline {
+                margin: 5px 0 5px;
+                color: #673ab7;
+            }
+        }
+
+
+    }
+
+    mat-card-header {
+        margin: auto auto;
+    }
+}
