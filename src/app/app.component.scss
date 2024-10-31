@@ -1,6 +1,20 @@
 
+
 .container {
     padding: 20px;
+}
+
+.ag-center-head .ag-header-cell-label {
+    text-align: center !important;
+    justify-content: center;
+}
+
+.cellCenter .ag-cell-wrapper {
+    justify-content: center;
+}
+
+.ag-theme-alpine .ag-checkbox-input-wrapper.ag-checked::after {
+    color: rgb(171, 51, 245) !important;
 }
 
 mat-card {

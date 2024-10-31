@@ -1,9 +1,15 @@
 <div class="container ">
   <mat-card >
+    <ngx-spinner bdColor="#673ab729" size="large" color="#fff" type="ball-scale-multiple" [fullScreen] = "true">
+      <p style="color: white">Loading...</p>
+    </ngx-spinner> 
     <mat-expansion-panel [expanded]="open ? 1 : 0" >
       <mat-expansion-panel-header>
           <div class="logo-container">
-            <img class="logo-round" src={{githubRoundLogoImage}} alt="" >&nbsp;<img class="logo-horiz-words" src={{githubLogoImage}} alt="">&nbsp;&nbsp;<mat-icon *ngIf="connected" style="-webkit-text-fill-color:green">check_circle</mat-icon>&nbsp;&nbsp;&nbsp;<mat-icon *ngIf="connected">history</mat-icon>
+            <img class="logo-round" src={{githubRoundLogoImage}} alt="" >
+            &nbsp;<img class="logo-horiz-words" src={{githubLogoImage}} alt="">
+            &nbsp;&nbsp;<mat-icon *ngIf="connected" style="-webkit-text-fill-color:green">check_circle</mat-icon>
+            &nbsp;&nbsp;&nbsp;<mat-icon *ngIf="connected">history</mat-icon>
           </div>
           <div *ngIf="connected" class="profile-info-container">
             <div class="profile-info-container-session">Admin: &nbsp;&nbsp;Last Synced: 2023-10-07 15:11 PM</div>
@@ -13,21 +19,58 @@
 
       <mat-card-content *ngIf="connected">
         <span>Connected as {{ user }}</span>
-        <br>
-        <br>
+        <br><br>
+        <mat-form-field>
+          <mat-label>Select Organization</mat-label>
+          <mat-select [(ngModel)]="selectedOrg" [(value)]="selectedOrg" (selectionChange)="fetchRepositories()" >
+            <mat-option *ngFor="let org of organizations" [value]="org.login">
+              {{org.login}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br/><br/>
+        <div *ngIf="selectedOrg">Specify which project we should pull from when synchronizing data into Sredio.
+        </div><br/>
+        <ag-grid-angular
+          *ngIf="selectedOrg && !showUserStats"
+          style="height: 500px;"
+          class="ag-theme-alpine"
+          [rowData]="rowData"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          (selectionChanged)="onSelectionChanged($event)"
+          rowSelection="multiple">
+        </ag-grid-angular>
+        <br/>
+        <button mat-raised-button color="primary" (click)="fetchAdditionalData()" [disabled]="selectedRepositories.length === 0" *ngIf="!showUserStats">
+          Fetch Additional Data
+        </button>
+        <button mat-raised-button (click)="showUserStats = false" *ngIf="showUserStats">
+          Show Repositories in this Organization
+        </button>
       </mat-card-content>
-
       <mat-card-content *ngIf="!connected">
         <button mat-raised-button color="primary" (click)="connect()">
           Connect
         </button>
         <h3 class="connect-headline md-headline">Connect Sredio to Github</h3>
       </mat-card-content>
+      <br/>
       <mat-card-content *ngIf="connected">
         <button mat-raised-button color="primary" class="connect-delete" (click)="disconnect()">
           Remove Integration
         </button>
       </mat-card-content>
+      <br/>
+      <br/>
+      <ng-container *ngIf="showUserStats">
+        <!-- <p>userStatsData length: {{ userStatsData.length }}</p> -->
+        <app-user-stats [userData]="userStatsData">
+          <ng-container *ngIf="userStatsData.length === 0">No user stats available</ng-container>
+        </app-user-stats>
+        <!-- <p>userStatsData passed to UserStatsComponent:</p>
+        <pre>{{ userStatsData | json }}</pre> -->
+      </ng-container>   
     </mat-expansion-panel>
   </mat-card>
 </div>
