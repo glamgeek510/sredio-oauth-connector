@@ -12,4 +12,4 @@ const integrationSchema = new Schema<IGithubIntegration>({
   connectedAt: { type: Date, required: true },
 });
 
-export default mongoose.model<IGithubIntegration>('GithubIntegration', integrationSchema);
+export default mongoose.model<IGithubIntegration>('GitHubUsers', integrationSchema);

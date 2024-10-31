@@ -1,0 +1,21 @@
+<div class="user-stats-container">
+  <ngx-spinner bdColor="#673ab729" size="large" color="#fff" type="ball-scale-multiple" [fullScreen] = "true">
+    <p style="color: white">Loading...</p>
+  </ngx-spinner> 
+  <h2>Repository User Statistics</h2>
+    <div>
+      <ag-grid-angular
+      *ngIf="userStats.length > 0; else noData"
+      style="height: 200px;"
+      class="ag-theme-alpine"
+      [rowData]="userStats"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationAutoPageSize]="true">
+    </ag-grid-angular>
+  </div>
+  <ng-template #noData>
+    <p>No user statistics available.</p>
+  </ng-template>
+</div>
