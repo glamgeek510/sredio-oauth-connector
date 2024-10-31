@@ -9,6 +9,7 @@ export interface ContributorStats {
 export interface RepositoryStats {
     name: string;
     userStats: ContributorStats[];
+    contributors: ContributorStats[];
 }
   
 export interface ApiResponse {

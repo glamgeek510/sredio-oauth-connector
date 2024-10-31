@@ -76,7 +76,6 @@ export class AppComponent implements OnInit {
 
     if (this.user) {
       this.fetchOrganizations();
-      this.spinner.hide();
     }
   }
 
